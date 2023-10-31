@@ -584,6 +584,12 @@ namespace Configurator
                 Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\NlaSvc  ", "Start", 2, RegistryValueKind.DWord);
                 Configurator.DeleteValue("DisableWiFi");
             }
+                        if (OSName.Text.Contains("Windows 11"))
+            {
+                Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\netprofm", "Start", 3, RegistryValueKind.DWord);
+            }
+ 
+    }
         }
 
         private void tsEnableHAGS_CheckedChanged(object sender, EventArgs e)
