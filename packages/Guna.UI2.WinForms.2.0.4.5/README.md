@@ -8,7 +8,7 @@ Guna.UI2 WinForms is the suite for creating groundbreaking desktop app UI. It is
 - .NET 7
 
 ## IDE
-- Visual Studio 2012 or higger
+- Visual Studio 2012 or higher
  
 ## Links
 - [Homepage](https://gunaui.com/)  
