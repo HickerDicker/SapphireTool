@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApplication2.User_Controls
+﻿namespace SapphireTool.UserControls
 {
     partial class custom
     {

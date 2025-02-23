@@ -1,36 +1,37 @@
-﻿using Microsoft.Win32;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.IO.Compression;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using Guna.UI2.WinForms;
-using WindowsFormsApplication2.Dialog_Boxes;
-using WindowsFormsApplication2.User_Controls;
+using Newtonsoft.Json;
+using System.IO;
+using System.Net;
+using System.Threading.Tasks;
 using System.Diagnostics;
-using static System.Windows.Forms.AxHost;
-using System.Runtime.CompilerServices;
-using Login_HWID.Dialog_Boxes;
-using static SapphireTool.User_Controls.Downloads;
-using System.Runtime.InteropServices;
-using System.Xml.Linq;
+using System.ComponentModel;
+using System.Text;
+using SapphireTool.DialogBoxes;
+using SapphireTool.UserControls;
 
-namespace SapphireTool.User_Controls
+namespace SapphireTool.UserControls
 {
     public partial class Downloads : UserControl
     {
-        private static Downloads _instace;
+        Stopwatch sw = new Stopwatch();
 
+        string appNameTemp;
+        int maxCount = 0;
+        int count = 0;
+        private bool cancelled = false;
+        private WebClient _webClient;
+        private Task _downloadTask;
+        string downloadLog;
+        private int downloadCount = 0;
+        string fileExtension = ".exe";
+        private string dl_location = @"C:\SapphireTool\Downloads";
+
+        private static Downloads _instace;
         public static Downloads Instance
         {
             get
@@ -40,280 +41,121 @@ namespace SapphireTool.User_Controls
                 return _instace;
             }
         }
-        public Downloads()
-        {
-            this.InitializeComponent();
-        }
-        private List<FeedApp> feedApps;
-        public sealed class FeedApp
+        public class ApplicationInfo
         {
             public string Title { get; set; }
             public string Link { get; set; }
-            public string Tag { get; set; }
-            public string version { get; set; }
-            public string type { get; set; }
-            public string size { get; set; }
+            public string Version { get; set; }
+            public string Type { get; set; }
+            public string Size { get; set; }
         }
-        private void downloads_Load(object sender, EventArgs e)
+
+        private List<ListViewItem> allListViewItems;
+
+        public Downloads()
         {
-
-            base.BeginInvoke(new MethodInvoker(delegate
-            {
-                this.GetFeed();
-            }));
-
-            this.DPI_PREFERENCE = Convert.ToInt32(Registry.GetValue("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\ThemeManager", "LastLoadedDPI", "96"));
+            InitializeComponent();
+            GetList();
+            name.Width = 307;
+            version.Width = 275;
+            type.Width = 155;
+            size.Width = 148;
         }
-        public async void GetFeed()
+
+        private async void GetList()
         {
             try
             {
-                WebClient webClient = new WebClient
+                string jsonUrl = "https://hickos.hickdick.workers.dev/0:/Downloads.json";
+                using (WebClient webClient = new WebClient())
                 {
-                    Headers = { { "Cache-Control", "no-cache" } },
-                    Encoding = Encoding.UTF8
-                };
-                label2.Text = "Status: Loading The Downloads";
-                string value = await webClient.DownloadStringTaskAsync(_feedLink);
-                webClient.DownloadProgressChanged += dl_DownloadProgressChanged;
-                AppsFromFeed = JsonConvert.DeserializeObject<List<FeedApp>>(value);
-                panel1.Controls.Clear();
-                for (int i = 0; i < AppsFromFeed.Count; i++)
-                {
-                    FeedApp feedApp = AppsFromFeed[i];
-                    DlAppCard dlAppCard = new DlAppCard
+                    webClient.Headers.Add("Cache-Control", "no-cache");
+                    webClient.Encoding = Encoding.UTF8;
+                    status.Text = "Status: Getting List...";
+                    string jsonString = await webClient.DownloadStringTaskAsync(jsonUrl);
+                    List<ApplicationInfo> appList = JsonConvert.DeserializeObject<List<ApplicationInfo>>(jsonString);
+                    listView1.Items.Clear();
+                    foreach (var appInfo in appList)
                     {
-                        AutoSize = true,
-                        Anchor = (AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right),
-                        appTitle =
-                         {
-                             Text = feedApp.Title,
-                             Name = feedApp.Tag
-                         },
-                                        version =
-                         {
-                             Text = feedApp.version
-                         },
-                                        type =
-                         {
-                             Text = feedApp.type
-                         },
-                                        size =
-                         {
-                             Text = feedApp.size
-                         }
-                    };
-                    dlAppCard.Top = i * dlAppCard.Height;
-                    dlAppCard.Left = 0;
-                    dlAppCard.Width = panel1.ClientSize.Width;
-                    panel1.Controls.Add(dlAppCard);
-                    this.panel1.AutoScroll = false;
-                    Guna2VScrollBar1.Visible = false;
-                    await Task.Delay(10);
+                        ListViewItem item = new ListViewItem(appInfo.Title);
+                        item.SubItems.Add(appInfo.Version);
+                        item.SubItems.Add(appInfo.Type);
+                        item.SubItems.Add(appInfo.Size);
+                        item.Tag = appInfo;
+                        listView1.Items.Add(item);
+                    }
+
+                    allListViewItems = listView1.Items.Cast<ListViewItem>().ToList();
+
+                    status.Text = "Status: Idle";
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-            }
-            this.panel1.AutoScroll = true;
-            Guna2VScrollBar1.Visible = true;
-            label2.Text = "Status: Idle";
-        }
-        private void RenderAppDownloaderBusy()
-        {
-            IEnumerator<DlAppCard> enumerator = panel1.Controls.OfType<DlAppCard>().GetEnumerator();
-            btnDownloadApps.Enabled = false;
-            try
-            {
-                while (enumerator.MoveNext())
-                {
-                    DlAppCard current = enumerator.Current;
-                    foreach (Guna2CheckBox item in current.Controls.OfType<Guna2CheckBox>())
-                    {
-                        item.Enabled = false;
-                    }
-                    foreach (Label item2 in current.Controls.OfType<Label>())
-                    {
-                        item2.ForeColor = Color.LightGray;
-                    }
-                }
-            }
-            finally
-            {
-                enumerator?.Dispose();
+                MessageBox.Show($"Error loading app list: {ex.Message}");
             }
         }
-        private async void btnDownloadApps_Click(object sender, EventArgs e)
+
+        //search box
+        private void searchBox_TextChanged(object sender, EventArgs e)
         {
-            RenderAppDownloaderBusy();
-            maxCount = 0;
-            downloadCount = 0;
-            count = 0;
-            downloadLog = string.Empty;
-            foreach (DlAppCard item in panel1.Controls.OfType<DlAppCard>())
+            string searchText = searchBox.Text.ToLower();
+            listView1.Items.Clear();
+
+            foreach (var item in allListViewItems)
             {
-                Guna2CheckBox guna2CheckBox = item.Controls.OfType<Guna2CheckBox>().FirstOrDefault();
-                if (guna2CheckBox != null && guna2CheckBox.Checked)
+                string itemName = item.SubItems[0].Text.ToLower();
+
+                if (itemName.Contains(searchText))
                 {
-                    maxCount++;
+                    listView1.Items.Add(item);
                 }
             }
-            foreach (FeedApp x in AppsFromFeed)
+        }
+
+        private void listView1_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
+        {
+            using (Brush customBrush = new SolidBrush(Color.FromArgb(33, 33, 33)))
             {
-                if (string.IsNullOrEmpty(x.Tag))
+                e.Graphics.FillRectangle(customBrush, e.Bounds);
+            }
+            e.DrawText();
+        }
+
+        private void listView1_DrawItem(object sender, DrawListViewItemEventArgs e)
+        {
+            e.DrawDefault = true;
+        }
+        private void Downloader_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            this.BeginInvoke(new Action(() =>
+            {
+                status.Text = string.Format("({1}/{2}) - {0} ...", appNameTemp, count, maxCount);
+                lblSpeed.Text = string.Format("{0} kb/s", (e.BytesReceived / 1024d / sw.Elapsed.TotalSeconds).ToString("0.00"));
+                lblDownload.Text = string.Format("{0} MB / {1} MB",
+                    (e.BytesReceived / 1024d / 1024d).ToString("0.00"),
+                    (e.TotalBytesToReceive / 1024d / 1024d).ToString("0.00"));
+                ProgressBar1.Value = e.ProgressPercentage;
+            }));
+        }
+
+        private void Downloader_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            downloadCount++;
+            BeginInvoke((MethodInvoker)delegate
+            {
+                if (e.Cancelled)
                 {
-                    continue;
-                }
-                DlAppCard dlAppCard = panel1.Controls.OfType<DlAppCard>().FirstOrDefault((DlAppCard c) => c.appTitle.Name == x.Tag);
-                if (dlAppCard == null)
-                {
-                    continue;
-                }
-                Guna2CheckBox guna2CheckBox2 = dlAppCard.Controls.OfType<Guna2CheckBox>().FirstOrDefault();
-                if (guna2CheckBox2 != null && guna2CheckBox2.Checked)
-                {
-                    appNameTemp = x.Title;
-                    count++;
-                    if (!string.IsNullOrEmpty(x.Link))
+                    RenderAppDownloaderFree();
+                    using (cancel xForm = new cancel())
                     {
-                        await DownloadApp(x);
+                        xForm.ShowDialog(this);
                     }
                 }
-            }
-            foreach (DlAppCard item2 in panel1.Controls.OfType<DlAppCard>())
-            {
-                Guna2CheckBox guna2CheckBox3 = item2.Controls.OfType<Guna2CheckBox>().FirstOrDefault();
-                if (guna2CheckBox3 != null)
+
+                if (downloadCount == maxCount)
                 {
-                    guna2CheckBox3.Checked = false;
-                }
-            }
-            RenderAppDownloaderFree();
-        }
-        private async Task DownloadApp(FeedApp app)
-        {
-            if (app.Tag.Contains ("Stm"))
-            {
-                Registry.SetValue("HKEY_CURRENT_USER\\SOFTWARE\\Valve\\Steam", "SmoothScrollWebViews", 0, RegistryValueKind.DWord);
-                Registry.SetValue("HKEY_CURRENT_USER\\SOFTWARE\\Valve\\Steam", "DWriteEnable", 0, RegistryValueKind.DWord);
-                Registry.SetValue("HKEY_CURRENT_USER\\SOFTWARE\\Valve\\Steam", "StartupMode", 0, RegistryValueKind.DWord);
-                Registry.SetValue("HKEY_CURRENT_USER\\SOFTWARE\\Valve\\Steam", "H264HWAccel", 0, RegistryValueKind.DWord);
-                Registry.SetValue("HKEY_CURRENT_USER\\SOFTWARE\\Valve\\Steam", "DPIScaling", 0, RegistryValueKind.DWord);
-                Registry.SetValue("HKEY_CURRENT_USER\\SOFTWARE\\Valve\\Steam", "GPUAccelWebViews", 0, RegistryValueKind.DWord);
-            }
-            try
-            {
-                using (_webClient = new WebClient())
-                {
-                    _webClient.Headers.Add("User-Agent: Other");
-                    _webClient.Encoding = Encoding.UTF8;
-                    _webClient.DownloadProgressChanged += dl_DownloadProgressChanged;
-                    _webClient.DownloadFileCompleted += Downloader_DownloadFileCompleted;
-
-                    string downloadFolder = @"C:\SapphireTool\Downloads";
-                    string fileExtension = ExtractExtensionFromUrl(app.Link);
-
-                    if (string.IsNullOrEmpty(fileExtension))
-                    {
-                        fileExtension = ".exe";
-                    }
-
-                    sw.Start();
-                    await _webClient.DownloadFileTaskAsync(new Uri(app.Link), Path.Combine(downloadFolder, app.Title + fileExtension));
-                    sw.Stop();
-                }
-            }
-            catch (Exception)
-            {
-                string downloadFolder = @"C:\SapphireTool\Downloads";
-                string fileExtension = ExtractExtensionFromUrl(app.Link);
-
-                if (string.IsNullOrEmpty(fileExtension))
-                {
-                    fileExtension = ".exe";
-                }
-
-                try { File.Delete(Path.Combine(downloadFolder, app.Title + fileExtension)); } catch { }
-            }
-            finally
-            {
-                sw.Reset();
-            }
-        }
-
-        private string ExtractExtensionFromUrl(string url)
-        {
-            var knownExtensions = new[] { ".msi", ".exe", ".zip", ".7z", ".iso" };
-            return knownExtensions.FirstOrDefault(ext => url.EndsWith(ext, StringComparison.OrdinalIgnoreCase)) ?? string.Empty;
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (this._webClient != null && this._webClient.IsBusy)
-            {
-                this._webClient.CancelAsync();
-            }
-            this.cancelled = true;
-        }
-
-
-        private void RenderAppDownloaderFree()
-        {
-            this.progressBar1.Value = 0;
-            this.lblDownload.Text = "";
-            this.label2.Refresh();
-            IEnumerator<DlAppCard> enumerator = this.panel1.Controls.OfType<DlAppCard>().GetEnumerator();
-            this.btnDownloadApps.Enabled = true;
-            this.label2.Text = "Status : Idle...";
-            this.lblDownload.Refresh();
-            this.lblSpeed.Text = "";
-            this.sw.Reset();
-
-            try
-            {
-                while (enumerator.MoveNext())
-                {
-                    DlAppCard dlAppCard = enumerator.Current;
-                    foreach (Guna2CheckBox Guna2CheckBox in dlAppCard.Controls.OfType<Guna2CheckBox>())
-                    {
-                        Guna2CheckBox.Enabled = true;
-                        Guna2CheckBox.Checked = false;
-                    }
-                    foreach (Label label in dlAppCard.Controls.OfType<Label>())
-                    {
-                        label.ForeColor = Color.White;
-                    }
-                }
-            }
-            finally
-            {
-                if (enumerator != null)
-                {
-                    enumerator.Dispose();
-                }
-            }
-        }
-        private async Task<List<FeedApp>> FetchFeedAppsAsync()
-        {
-            await Task.Delay(1000);
-            return new List<FeedApp>();
-        }
-        public void Downloader_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
-        {
-            base.BeginInvoke(new MethodInvoker(delegate
-            {
-                try
-                {
-                    if (e.Cancelled)
-                    {
-                        RenderAppDownloaderFree();
-                        using (cancel xForm = new cancel())
-                        {
-                            xForm.ShowDialog(this);
-                        }
-                    }
-                    else if (e.Error != null)
+                    if (e.Error != null && !e.Cancelled)
                     {
                         RenderAppDownloaderFree();
                         using (Error xForm = new Error())
@@ -321,49 +163,157 @@ namespace SapphireTool.User_Controls
                             xForm.ShowDialog(this);
                         }
                     }
-                    else
+                    else if (!cancelled)
                     {
-                        downloadCount++;
-                        if (downloadCount == maxCount)
+                        RenderAppDownloaderFree();
+                        using (custom xForm = new custom())
                         {
-                            RenderAppDownloaderFree();
-                            using (custom xForm = new custom())
-                            {
-                                xForm.ShowDialog(this);
-                            }
+                            xForm.ShowDialog(this);
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Exception in DownloadFileCompleted: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }));
+            });
         }
-        private void dl_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+
+        private async void btnDownload_Click(object sender, EventArgs e)
         {
-            var locals = new
+            sw.Start();
+            count = 0;
+            downloadCount = 0;
+            cancelled = false;
+            searchBox.Text = "";
+            downloadLog = string.Empty;
+
+            if (!Directory.Exists(dl_location))
             {
-                thisReference = this,
-                eReference = e
-            };
+                Directory.CreateDirectory(dl_location);
+            }
 
-            this.BeginInvoke(new Action(delegate
+            foreach (ListViewItem selectedItem in listView1.CheckedItems)
             {
-                locals.thisReference.label2.Text = string.Format("({1}/{2}) - {0} ...",
-                    locals.thisReference.appNameTemp,
-                    locals.thisReference.count,
-                    locals.thisReference.maxCount);
+                ApplicationInfo selectedApp = (ApplicationInfo)selectedItem.Tag;
 
-                locals.thisReference.lblSpeed.Text = string.Format("{0} kb/s",
-                    ((double)locals.eReference.BytesReceived / 1024.0 / locals.thisReference.sw.Elapsed.TotalSeconds).ToString("0.00"));
+                if (selectedApp != null && !string.IsNullOrEmpty(selectedApp.Link))
+                {
+                    // Determine file extension based on link content
+                    if (selectedApp.Link.Contains(".7z") || selectedApp.Link.Contains(".bin"))
+                    {
+                        fileExtension = ".7z";
+                    }
+                    else if (selectedApp.Link.Contains(".msi"))
+                    {
+                        fileExtension = ".msi";
+                    }
+                    else if (selectedApp.Link.Contains(".zip"))
+                    {
+                        fileExtension = ".zip";
+                    }
+                    else if (selectedApp.Link.Contains(".img"))
+                    {
+                        fileExtension = ".img";
+                    }
+                    else if (selectedApp.Link.Contains(".rar"))
+                    {
+                        fileExtension = ".rar";
+                    }
+                    else if (selectedApp.Link.Contains(".bat"))
+                    {
+                        fileExtension = ".bat";
+                    }
+                    else if (selectedApp.Link.Contains(".iso"))
+                    {
+                        fileExtension = ".iso";
+                    }
+                    else if (selectedApp.Link.Contains(".exe"))
+                    {
+                        fileExtension = ".exe";
+                    }
+                    else
+                    {
+                        fileExtension = ".exe";
+                    }
 
-                locals.thisReference.lblDownload.Text = string.Format("{0} MB / {1} MB",
-                    ((double)locals.eReference.BytesReceived / 1024.0 / 1024.0).ToString("0.00"),
-                    ((double)locals.eReference.TotalBytesToReceive / 1024.0 / 1024.0).ToString("0.00"));
+                    string downloadLink = selectedApp.Link;
+                    string version = selectedApp.Version.Replace("| Version : ", " ");
+                    string filename = selectedApp.Title;
 
-                locals.thisReference.progressBar1.Value = locals.eReference.ProgressPercentage;
-            }));
+                    appNameTemp = selectedApp.Title;
+
+                    count++;
+
+                    if (!cancelled)
+                    {
+                        _webClient = new WebClient();
+                        _webClient.DownloadFileCompleted += Downloader_DownloadFileCompleted;
+                        _webClient.DownloadProgressChanged += Downloader_DownloadProgressChanged;
+                        RenderDownloaderBusy();
+                        _downloadTask = _webClient.DownloadFileTaskAsync(new Uri(downloadLink), dl_location + "\\" + filename + version + fileExtension);
+
+                        try
+                        {
+                            await _downloadTask;
+                            downloadLog += "• " + filename + ":" + Environment.NewLine + "Downloaded Successfully!" + Environment.NewLine + Environment.NewLine;
+                        }
+                        catch (Exception)
+                        {
+                            downloadLog += "• " + filename + ":" + Environment.NewLine + "Download Failed!" + Environment.NewLine + Environment.NewLine;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            cancelled = true;
+            if (_webClient != null)
+            {
+                _webClient.CancelAsync();
+            }
+            RenderAppDownloaderFree();
+        }
+
+        private void RenderDownloaderBusy()
+        {
+            btnDownload.Enabled = false;
+            searchBox.Enabled = false;
+        }
+
+        private void RenderAppDownloaderFree()
+        {
+            sw.Reset();
+            ProgressBar1.Value = 0;
+            lblSpeed.Text = ""; lblDownload.Refresh();
+            lblDownload.Text = ""; lblDownload.Refresh();
+            status.Text = "Status : Idle..."; status.Refresh();
+            searchBox.Enabled = true;
+            btnDownload.Enabled = true;
+
+            foreach (ListViewItem item in listView1.Items)
+            {
+                item.Checked = false;
+            }
+        }
+
+        private void listView1_BeforeLabelEdit(object sender, LabelEditEventArgs e)
+        {
+            e.CancelEdit = true;
+        }
+
+        private void listView1_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            maxCount = 0;
+            foreach (ListViewItem item in listView1.Items)
+            {
+                if (item.Checked)
+                {
+                    maxCount++;
+                }
+                else if (item.Checked = false && maxCount > 0 && maxCount != 0)
+                {
+                    maxCount--;
+                }
+            }
         }
     }
 }

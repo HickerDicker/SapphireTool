@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApplication2.Dialog_Boxes
+﻿namespace SapphireTool.DialogBoxes
 {
     partial class about
     {
@@ -107,9 +107,9 @@
             this.label8.ForeColor = System.Drawing.Color.Silver;
             this.label8.Location = new System.Drawing.Point(184, 228);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(161, 15);
+            this.label8.Size = new System.Drawing.Size(159, 15);
             this.label8.TabIndex = 284;
-            this.label8.Text = "Last Updated : 08/31/2024";
+            this.label8.Text = "Last Updated : 12/20/2024";
             // 
             // pictureBox1
             // 

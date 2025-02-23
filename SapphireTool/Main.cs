@@ -1,20 +1,12 @@
 ﻿using Guna.UI2.WinForms;
 using Microsoft.Win32;
-using System.Diagnostics;
 using System.Windows.Forms;
-using System.Threading.Tasks;
 using System.Runtime.InteropServices;
-using System.Management;
 using System;
 using System.Linq;
-using System.Web.UI.WebControls;
-using SapphireTool;
-using WindowsFormsApplication2.User_Controls;
-using WindowsFormsApplication2.Dialog_Boxes;
-using WindowsFormsApplication2;
-using static WindowsFormsApplication2.Utils;
-using System.Threading;
-using SapphireTool.User_Controls;
+using static SapphireTool.Utils;
+using SapphireTool.UserControls;
+using SapphireTool.DialogBoxes;
 
 namespace SapphireTool
 {
@@ -23,8 +15,7 @@ namespace SapphireTool
         public Main()
         {
             InitializeComponent();
-            this.Text = "SapphireTool v1.1";
-            ButtonToggleManager toggleManager = new ButtonToggleManager(guna2Panel1, guna2Button1, guna2Button8);
+            this.Text = "SapphireTool v1.2";
         }
 
         static bool IsFontInstalled(string fontName)
@@ -88,14 +79,14 @@ namespace SapphireTool
 
             if (isUpdateAvailable)
             {
-                    using (update xForm = new update())
-                    {
-                        xForm.ShowDialog(this);
-                    }
+                using (update xForm = new update())
+                {
+                    xForm.ShowDialog(this);
+                }
             }
         }
 
-    private void guna2Button7_Click(object sender, EventArgs e)
+        private void guna2Button7_Click(object sender, EventArgs e)
         {
             guna2Panel3.Controls.Add(Downloads.Instance);
             Downloads.Instance.Dock = DockStyle.Fill;
@@ -109,11 +100,6 @@ namespace SapphireTool
                 {
                     guna2Panel3.Controls.Remove(control);
                 }
-        }
-
-        private void guna2Panel2_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void guna2Button8_Click(object sender, EventArgs e)
@@ -167,6 +153,22 @@ namespace SapphireTool
             windowsapp.Instance.BringToFront();
         }
 
+        private void button16_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+            using (upgrade xForm = new upgrade())
+            {
+                xForm.ShowDialog(this);
+            }
+        }
 
+        private void button14_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+            using (upgrade xForm = new upgrade())
+            {
+                xForm.ShowDialog(this);
+            }
+        }
     }
 }

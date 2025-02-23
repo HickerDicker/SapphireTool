@@ -20,7 +20,7 @@ using System.Windows.Forms;
 using System.Collections;
 using System.Linq;
 
-namespace WindowsFormsApplication2
+namespace SapphireTool
 {
     class Utils
     {
@@ -93,78 +93,6 @@ namespace WindowsFormsApplication2
             if (val != null)
             {
                 toggleSwitch.Checked = true;
-            }
-        }
-        public class ButtonToggleManager
-        {
-            private List<Guna2Button> buttons = new List<Guna2Button>();
-            private Guna2Button lastClickedButton = null;
-            private Color defaultColor = Color.FromArgb(28, 26, 38);
-            private Color selectedColor = Color.FromArgb(38, 36, 48);
-            private Color borderColor = Color.BlueViolet;
-            private Padding borderThickness = new Padding(0, 0, 0, 2);
-            private Guna2Button excludedButton;
-            public ButtonToggleManager(Guna2Panel panel, Guna2Button defaultButton, Guna2Button excludeButton = null)
-            {
-                excludedButton = excludeButton;
-                FindButtonsInPanel(panel);
-                foreach (var button in buttons)
-                {
-                    button.Click += Button_Click;
-                }
-                if (defaultButton != null)
-                {
-                    SetButtonSelected(defaultButton);
-                    lastClickedButton = defaultButton;
-                }
-            }
-            private void FindButtonsInPanel(Guna2Panel panel)
-            {
-                foreach (var control in panel.Controls)
-                {
-                    if (control is Guna2Button gunaButton && gunaButton != excludedButton)
-                    {
-                        buttons.Add(gunaButton);
-                    }
-                    else if (control is Guna2Panel subPanel)
-                    {
-                        FindButtonsInPanel(subPanel);
-                    }
-                }
-            }
-            private void Button_Click(object sender, EventArgs e)
-            {
-                var clickedButton = (Guna2Button)sender;
-                if (lastClickedButton != null && lastClickedButton != clickedButton)
-                {
-                    SetButtonDefault(lastClickedButton);
-                }
-                SetButtonSelected(clickedButton);
-                lastClickedButton = clickedButton;
-            }
-            private void SetButtonDefault(Guna2Button button)
-            {
-                button.FillColor = defaultColor;
-                button.CustomBorderColor = Color.Empty;
-                button.CustomBorderThickness = new Padding(0);
-                button.CheckedState.BorderColor = Color.Empty;
-                button.CheckedState.CustomBorderColor = Color.Empty;
-            }
-            private void SetButtonSelected(Guna2Button button)
-            {
-                button.FillColor = selectedColor;
-                button.CustomBorderColor = borderColor;
-                button.CustomBorderThickness = borderThickness;
-                button.CheckedState.BorderColor = borderColor;
-                button.CheckedState.CustomBorderColor = borderColor;
-            }
-            public void Reset()
-            {
-                if (lastClickedButton != null)
-                {
-                    SetButtonDefault(lastClickedButton);
-                    lastClickedButton = null;
-                }
             }
         }
 

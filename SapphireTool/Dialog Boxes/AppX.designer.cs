@@ -1,5 +1,5 @@
 ﻿
-namespace Login_HWID.Dialog_Boxes
+namespace Login_HWID.DialogBoxes
 {
     partial class AppX
     {

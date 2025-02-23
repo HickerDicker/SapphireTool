@@ -1,27 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using System.Diagnostics;
-using WindowsFormsApplication2.Dialog_Boxes;
+using SapphireTool.DialogBoxes;
 using System.IO;
-using WindowsFormsApplication2.Classes;
-using Login_HWID.Dialog_Boxes;
-using Microsoft.Win32;
-using System.Web.UI.WebControls;
-using SapphireTool.User_Controls;
-using System.Diagnostics.Eventing.Reader;
+using Login_HWID.DialogBoxes;
 using System.IO.Compression;
-using System.Threading;
-using System.Security.Cryptography.X509Certificates;
 
-namespace WindowsFormsApplication2.User_Controls
+namespace SapphireTool.UserControls
 {
     public partial class windowsapp : UserControl
     {
@@ -213,27 +200,30 @@ namespace WindowsFormsApplication2.User_Controls
             label2.Text = "Status: Downloading Microsoft Store..."; label2.Refresh();
             sw.Start();
             this.Show();
-            await dl.DownloadFileTaskAsync(new Uri("https://github.com/ishad0w/microsoft-windows-10-ltsc-2021-microsoft-store/releases/download/2022-04-01/Install_Microsoft_Libs_and_Store.zip"), "C:\\SapphireTool\\Downloads\\Appx\\Install_Microsoft_Libs_and_Store.zip");
+            await dl.DownloadFileTaskAsync(new Uri("https://hickos.hickdick.workers.dev/0:/Install_Microsoft_Libs_and_Store.zip"), "C:\\SapphireTool\\Downloads\\Appx\\Install_Microsoft_Libs_and_Store.zip");
         }
 
         private void guna2Button5_Click(object sender, EventArgs e)
         {
-            if (File.Exists("C:\\SapphireTool\\Downloads\\Appx\\Install_Microsoft_Libs_and_Store.zip"))
+            var zipPath = @"C:\SapphireTool\Downloads\Appx\Install_Microsoft_Libs_and_Store.zip";
+            var extractPath = @"C:\SapphireTool\Downloads\Appx\Install_Microsoft_Libs_and_Store";
+            Directory.CreateDirectory(extractPath);
+            if (File.Exists("C:\\SapphireTool\\Downloads\\Appx\\Install_Microsoft_Libs_and_Store\\Install_Microsoft_Libs_and_Store.bat"))
             {
-                var zipPath = @"C:\SapphireTool\Downloads\Appx\Install_Microsoft_Libs_and_Store.zip";
-                var extractPath = @"C:\SapphireTool\Downloads\Appx\Install_Microsoft_Libs_and_Store";
-                Directory.CreateDirectory(extractPath);
+            }
+            else
+            {
                 ZipFile.ExtractToDirectory(zipPath, extractPath);
-                if (File.Exists("C:\\SapphireTool\\Downloads\\Appx\\Install_Microsoft_Libs_and_Store\\Install_Microsoft_Libs_and_Store.bat"))
+            }
+            if (File.Exists("C:\\SapphireTool\\Downloads\\Appx\\Install_Microsoft_Libs_and_Store\\Install_Microsoft_Libs_and_Store.bat"))
+            {
+                Process.Start("C:\\SapphireTool\\Downloads\\Appx\\Install_Microsoft_Libs_and_Store\\Install_Microsoft_Libs_and_Store.bat");
+            }
+            else
+            {
+                using (_404notfound xForm = new _404notfound())
                 {
-                    Utils.RunCommand("cmd.exe", "/c cd C:\\SapphireTool\\Downloads\\Appx\\Install_Microsoft_Libs_and_Store && C:\\SapphireTool\\Downloads\\Appx\\Install_Microsoft_Libs_and_Store\\Install_Microsoft_Libs_and_Store.bat");
-                }
-                else
-                {
-                    using (_404notfound xForm = new _404notfound())
-                    {
-                        xForm.ShowDialog(this);
-                    }
+                    xForm.ShowDialog(this);
                 }
             }
         }

@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using WindowsFormsApplication2.Dialog_Boxes;
+using SapphireTool.DialogBoxes;
 using Microsoft.Win32;
 using System.Diagnostics;
 
-namespace WindowsFormsApplication2.User_Controls
+namespace SapphireTool.UserControls
 {
     public partial class context : UserControl
     {

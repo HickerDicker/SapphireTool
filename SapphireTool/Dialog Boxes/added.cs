@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApplication2.Dialog_Boxes
+namespace SapphireTool.DialogBoxes
 {
     public partial class added : Form
     {

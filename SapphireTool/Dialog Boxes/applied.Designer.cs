@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApplication2.Classes
+﻿namespace SapphireTool.Classes
 {
     partial class applied
     {

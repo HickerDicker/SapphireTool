@@ -2,10 +2,10 @@
 using System.Diagnostics;
 using System.Windows.Forms;
 using Microsoft.Win32;
-using WindowsFormsApplication2.Classes;
-using WindowsFormsApplication2.Dialog_Boxes;
+using SapphireTool.Classes;
+using SapphireTool.DialogBoxes;
 
-namespace WindowsFormsApplication2.User_Controls
+namespace SapphireTool.UserControls
 {
     public partial class gaming : UserControl
     {
@@ -35,6 +35,11 @@ namespace WindowsFormsApplication2.User_Controls
         private void guna2Button1_Click(object sender, EventArgs e)
         {
             Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers\\Scheduler", "EnablePreemption", 0, RegistryValueKind.DWord);            //msgbox
+            Registry.SetValue("HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\nvlddmkm", "DisablePreemption", 1, RegistryValueKind.DWord);
+            Registry.SetValue("HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\nvlddmkm", "DisableCudaContextPreemption", 1, RegistryValueKind.DWord);
+            Registry.SetValue("HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\nvlddmkm", "EnableCEPreemption", 0, RegistryValueKind.DWord);
+            Registry.SetValue("HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\nvlddmkm", "DisablePreemptionOnS3S4", 1, RegistryValueKind.DWord);
+            Registry.SetValue("HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\nvlddmkm", "ComputePreemption", 0, RegistryValueKind.DWord);
             using (applied xForm = new applied())
             {
                 xForm.ShowDialog(this);
@@ -42,7 +47,7 @@ namespace WindowsFormsApplication2.User_Controls
         }
         private void guna2Button4_Click(object sender, EventArgs e)
         {
-            Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "RMHdcpKeyglobZero", 0, RegistryValueKind.DWord);
+            Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0001", "RMHdcpKeyglobZero", 0, RegistryValueKind.DWord);
             //msgbox
             using (reverted xForm = new reverted())
             {
@@ -62,6 +67,11 @@ namespace WindowsFormsApplication2.User_Controls
         private void guna2Button2_Click(object sender, EventArgs e)
         {
             Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers\\Scheduler", "EnablePreemption", 1, RegistryValueKind.DWord);            //msgbox
+            Registry.SetValue("HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\nvlddmkm", "DisablePreemption", 0, RegistryValueKind.DWord);
+            Registry.SetValue("HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\nvlddmkm", "DisableCudaContextPreemption", 0, RegistryValueKind.DWord);
+            Registry.SetValue("HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\nvlddmkm", "EnableCEPreemption", 1, RegistryValueKind.DWord);
+            Registry.SetValue("HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\nvlddmkm", "DisablePreemptionOnS3S4", 0, RegistryValueKind.DWord);
+            Registry.SetValue("HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\nvlddmkm", "ComputePreemption", 1, RegistryValueKind.DWord);
             using (reverted xForm = new reverted())
             {
                 xForm.ShowDialog(this);
@@ -69,7 +79,7 @@ namespace WindowsFormsApplication2.User_Controls
         }
         private void guna2Button3_Click(object sender, EventArgs e)
         {
-            Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "RMHdcpKeyglobZero", 1, RegistryValueKind.DWord);
+            Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0001", "RMHdcpKeyglobZero", 1, RegistryValueKind.DWord);
             //msgbox
             using (applied xForm = new applied())
             {
@@ -295,7 +305,7 @@ namespace WindowsFormsApplication2.User_Controls
         }
         private void guna2Button31_Click(object sender, EventArgs e)
         {
-            Process.Start("C:\\PostInstall\\GPU\\Nvidia\\NVCleanstall_1.16.0.exe");
+            Process.Start("C:\\PostInstall\\GPU\\Nvidia\\NVCleanstall_1.18.0.exe");
         }
 
         private void guna2Button32_Click(object sender, EventArgs e)
@@ -432,12 +442,10 @@ namespace WindowsFormsApplication2.User_Controls
 
         private void guna2Button55_Click(object sender, EventArgs e)
         {
-            Process.Start(@"C:\PostInstall\Services\exes.bat");
-            Utils.RunCommand("C:\\PostInstall\\Tweaks\\Nsudo.exe", "-U:S -P:E cmd /c C:\\PostInstall\\Services\\Minimal-services.reg");
-            //Message box displays
-            using (applied xForm = new applied())
+            using (SapphireTool.DialogBoxes.Minimal xForm = new SapphireTool.DialogBoxes.Minimal())
             {
                 xForm.ShowDialog(this);
+                GC.Collect();
             }
         }
 
@@ -453,8 +461,14 @@ namespace WindowsFormsApplication2.User_Controls
 
         private void guna2Button56_Click(object sender, EventArgs e)
         {
-            // I better not see anyone complain about not enough NVIDIA tweaks cause here you go 40 placebo dwords :3 happy?
             Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "RmDisableHwFaultBuffer", 1, RegistryValueKind.DWord);
+            Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "RMD3Feature", 1, RegistryValueKind.DWord);
+            Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "RMDisableGpuASPMFlags", 3, RegistryValueKind.DWord);
+            Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "RMBlcg", 286331153, RegistryValueKind.DWord);
+            Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "RMElcg", 1431655765, RegistryValueKind.DWord);
+            Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "RMElpg", 4095, RegistryValueKind.DWord);
+            Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "RMFspg", 15, RegistryValueKind.DWord);
+            Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "RMSlcg", 262143, RegistryValueKind.DWord);
             Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "EnableRuntimePowerManagement", 0, RegistryValueKind.DWord);
             Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "DisableOverlay", 1, RegistryValueKind.DWord);
             Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "D3PCLatency", 1, RegistryValueKind.DWord);
@@ -469,12 +483,6 @@ namespace WindowsFormsApplication2.User_Controls
             Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "RMLpwrGrIdleThresholdUs", 1, RegistryValueKind.DWord);
             Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "RMLpwrGrRgIdleThresholdUs", 1, RegistryValueKind.DWord);
             Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "RMLpwrMsIdleThresholdUs", 1, RegistryValueKind.DWord);
-            Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "VRDirectFlipDPCDelayUs", 1, RegistryValueKind.DWord);
-            Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "VRDirectFlipTimingMarginUs", 1, RegistryValueKind.DWord);
-            Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "VRDirectJITFlipMsHybridFlipDelayUs", 1, RegistryValueKind.DWord);
-            Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "vrrCursorMarginUs", 1, RegistryValueKind.DWord);
-            Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "vrrDeflickerMarginUs", 1, RegistryValueKind.DWord);
-            Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "vrrDeflickerMaxUs", 1, RegistryValueKind.DWord);
             Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "PreferSystemMemoryContiguous", 1, RegistryValueKind.DWord);
             Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "TCCSupported", 0, RegistryValueKind.DWord);
             Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000", "RmCacheLoc", 0, RegistryValueKind.DWord);
@@ -484,11 +492,6 @@ namespace WindowsFormsApplication2.User_Controls
             Registry.SetValue("HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\nvlddmkm", "DisplayPowerSaving", 0, RegistryValueKind.DWord);
             Registry.SetValue("HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\nvlddmkm", "RmGpsPsEnablePerCpuCoreDpc", 1, RegistryValueKind.DWord);
             Registry.SetValue("HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\nvlddmkm", "DisableWriteCombining", 1, RegistryValueKind.DWord);
-            Registry.SetValue("HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\nvlddmkm", "DisablePreemption", 1, RegistryValueKind.DWord);
-            Registry.SetValue("HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\nvlddmkm", "DisableCudaContextPreemption", 1, RegistryValueKind.DWord);
-            Registry.SetValue("HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\nvlddmkm", "EnableCEPreemption", 0, RegistryValueKind.DWord);
-            Registry.SetValue("HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\nvlddmkm", "DisablePreemptionOnS3S4", 1, RegistryValueKind.DWord);
-            Registry.SetValue("HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\nvlddmkm", "ComputePreemption", 0, RegistryValueKind.DWord);
             Registry.SetValue("HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\nvlddmkm", "LogWarningEntries", 0, RegistryValueKind.DWord);
             Registry.SetValue("HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\nvlddmkm", "LogPagingEntries", 0, RegistryValueKind.DWord);
             Registry.SetValue("HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\nvlddmkm", "LogEventEntries", 0, RegistryValueKind.DWord);

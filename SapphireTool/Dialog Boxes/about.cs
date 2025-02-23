@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
-namespace WindowsFormsApplication2.Dialog_Boxes
+namespace SapphireTool.DialogBoxes
 {
     public partial class about : Form
     {

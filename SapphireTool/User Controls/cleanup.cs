@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
-using WindowsFormsApplication2.Dialog_Boxes;
-using System.Security.Cryptography;
+using SapphireTool.DialogBoxes;
 
-namespace WindowsFormsApplication2
+namespace SapphireTool
 {
     public partial class cleanup : UserControl
     {

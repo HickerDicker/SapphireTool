@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApplication2.User_Controls
+﻿namespace SapphireTool.UserControls
 {
     partial class tweaks
     {
@@ -73,7 +73,6 @@
             this.label29 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
             this.tsStartmenu = new Guna.UI2.WinForms.Guna2ToggleSwitch();
-            this.tsTDPCS = new Guna.UI2.WinForms.Guna2ToggleSwitch();
             this.tsLSC = new Guna.UI2.WinForms.Guna2ToggleSwitch();
             this.tsVR = new Guna.UI2.WinForms.Guna2ToggleSwitch();
             this.tsNoLazy = new Guna.UI2.WinForms.Guna2ToggleSwitch();
@@ -99,7 +98,6 @@
             this.tsDisableActionCenter = new Guna.UI2.WinForms.Guna2ToggleSwitch();
             this.tsDisableWiFI = new Guna.UI2.WinForms.Guna2ToggleSwitch();
             this.label28 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
@@ -115,7 +113,7 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(18, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(147, 41);
+            this.label1.Size = new System.Drawing.Size(148, 41);
             this.label1.TabIndex = 1;
             this.label1.Text = "Tweaks";
             // 
@@ -410,7 +408,6 @@
             this.guna2Panel1.Controls.Add(this.label29);
             this.guna2Panel1.Controls.Add(this.label30);
             this.guna2Panel1.Controls.Add(this.tsStartmenu);
-            this.guna2Panel1.Controls.Add(this.tsTDPCS);
             this.guna2Panel1.Controls.Add(this.tsLSC);
             this.guna2Panel1.Controls.Add(this.tsVR);
             this.guna2Panel1.Controls.Add(this.tsNoLazy);
@@ -436,7 +433,6 @@
             this.guna2Panel1.Controls.Add(this.tsDisableActionCenter);
             this.guna2Panel1.Controls.Add(this.tsDisableWiFI);
             this.guna2Panel1.Controls.Add(this.label28);
-            this.guna2Panel1.Controls.Add(this.label27);
             this.guna2Panel1.Controls.Add(this.label16);
             this.guna2Panel1.Controls.Add(this.label23);
             this.guna2Panel1.Controls.Add(this.label22);
@@ -473,7 +469,7 @@
             this.tsNVMETweaks.CheckedState.FillColor = System.Drawing.Color.BlueViolet;
             this.tsNVMETweaks.CheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.tsNVMETweaks.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.tsNVMETweaks.Location = new System.Drawing.Point(430, 695);
+            this.tsNVMETweaks.Location = new System.Drawing.Point(8, 656);
             this.tsNVMETweaks.Name = "tsNVMETweaks";
             this.tsNVMETweaks.Size = new System.Drawing.Size(44, 20);
             this.tsNVMETweaks.TabIndex = 231;
@@ -488,7 +484,7 @@
             this.label38.AutoSize = true;
             this.label38.Font = new System.Drawing.Font("Inter", 14.25F);
             this.label38.ForeColor = System.Drawing.Color.White;
-            this.label38.Location = new System.Drawing.Point(487, 693);
+            this.label38.Location = new System.Drawing.Point(65, 655);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(138, 23);
             this.label38.TabIndex = 230;
@@ -529,7 +525,7 @@
             this.label36.ForeColor = System.Drawing.Color.White;
             this.label36.Location = new System.Drawing.Point(3, 610);
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(162, 26);
+            this.label36.Size = new System.Drawing.Size(166, 26);
             this.label36.TabIndex = 227;
             this.label36.Text = "Miscellaneous";
             // 
@@ -728,23 +724,6 @@
             this.tsStartmenu.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.tsStartmenu.UncheckedState.InnerColor = System.Drawing.Color.White;
             this.tsStartmenu.CheckedChanged += new System.EventHandler(this.tsStartmenu_CheckedChanged);
-            // 
-            // tsTDPCS
-            // 
-            this.tsTDPCS.Animated = true;
-            this.tsTDPCS.CheckedState.BorderColor = System.Drawing.Color.BlueViolet;
-            this.tsTDPCS.CheckedState.FillColor = System.Drawing.Color.BlueViolet;
-            this.tsTDPCS.CheckedState.InnerBorderColor = System.Drawing.Color.White;
-            this.tsTDPCS.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.tsTDPCS.Location = new System.Drawing.Point(8, 655);
-            this.tsTDPCS.Name = "tsTDPCS";
-            this.tsTDPCS.Size = new System.Drawing.Size(44, 20);
-            this.tsTDPCS.TabIndex = 201;
-            this.tsTDPCS.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.tsTDPCS.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.tsTDPCS.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
-            this.tsTDPCS.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.tsTDPCS.CheckedChanged += new System.EventHandler(this.tsTDPCS_CheckedChanged);
             // 
             // tsLSC
             // 
@@ -1165,17 +1144,6 @@
             this.label28.TabIndex = 176;
             this.label28.Text = "Disable Startmenu";
             // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Inter", 14.25F);
-            this.label27.ForeColor = System.Drawing.Color.White;
-            this.label27.Location = new System.Drawing.Point(65, 652);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(225, 23);
-            this.label27.TabIndex = 173;
-            this.label27.Text = "Disable Threaded DPCs";
-            // 
             // label16
             // 
             this.label16.AutoSize = true;
@@ -1270,7 +1238,6 @@
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label28;
         private Guna.UI2.WinForms.Guna2ToggleSwitch tsDisableWiFI;
         private Guna.UI2.WinForms.Guna2ToggleSwitch tsDisableMPO;
@@ -1286,7 +1253,6 @@
         private Guna.UI2.WinForms.Guna2ToggleSwitch tsEnableClipboardSvc;
         private Guna.UI2.WinForms.Guna2ToggleSwitch tsDisableActionCenter;
         private Guna.UI2.WinForms.Guna2ToggleSwitch tsStartmenu;
-        private Guna.UI2.WinForms.Guna2ToggleSwitch tsTDPCS;
         private Guna.UI2.WinForms.Guna2ToggleSwitch tsLSC;
         private Guna.UI2.WinForms.Guna2ToggleSwitch tsVR;
         private Guna.UI2.WinForms.Guna2ToggleSwitch tsNoLazy;

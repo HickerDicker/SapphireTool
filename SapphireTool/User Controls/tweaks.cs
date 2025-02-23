@@ -1,21 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
-using WindowsFormsApplication2.Classes;
 using System.Diagnostics;
-using System.Xml.Linq;
-using WindowsFormsApplication2.Dialog_Boxes;
 using System.IO;
-using SapphireTool;
 
-namespace WindowsFormsApplication2.User_Controls
+namespace SapphireTool.UserControls
 {
     public partial class tweaks : UserControl
     {
@@ -86,7 +75,6 @@ namespace WindowsFormsApplication2.User_Controls
             Utils.CheckRegistryValueAndSetToggleSwitch(key, "NoLazyMode", tsNoLazy); // Always develop no lazy men )))
             Utils.CheckRegistryValueAndSetToggleSwitch(key, "EnableVR", tsVR);
             Utils.CheckRegistryValueAndSetToggleSwitch(key, "EnableLargeSystemCache", tsLSC);
-            Utils.CheckRegistryValueAndSetToggleSwitch(key, "DisableThreadedDPCs", tsTDPCS);
             Utils.CheckRegistryValueAndSetToggleSwitch(key, "DisableStartmenu", tsStartmenu);
             Utils.CheckRegistryValueAndSetToggleSwitch(key, "DisableLockScreen", tsLockScreen);
             Utils.CheckRegistryValueAndSetToggleSwitch(key, "WallpaperQuality", tsWallpaper);
@@ -447,23 +435,13 @@ namespace WindowsFormsApplication2.User_Controls
             }
             else
             {
-                RegistryKey currentUserKey = Registry.CurrentUser;
-                currentUserKey.OpenSubKey(@"Software\Microsoft\GameBar", true)?.DeleteValue("GamePanelStartupTipIndex", false);
-                currentUserKey.OpenSubKey(@"Software\Microsoft\GameBar", true)?.DeleteValue("AllowAutoGameMode", false);
-                currentUserKey.OpenSubKey(@"Software\Microsoft\GameBar", true)?.DeleteValue("AutoGameModeEnabled", false);
-                currentUserKey.OpenSubKey(@"Software\Microsoft\GameBar", true)?.SetValue("UseNexusForGameBarEnabled", 1, RegistryValueKind.DWord);
-                currentUserKey.OpenSubKey(@"Software\Microsoft\GameBar", true)?.SetValue("ShowStartupPanel", 1, RegistryValueKind.DWord);
-                currentUserKey.OpenSubKey(@"System\GameConfigStore", true)?.SetValue("GameDVR_Enabled", 1, RegistryValueKind.DWord);
-                currentUserKey.OpenSubKey(@"System\GameConfigStore", true)?.SetValue("GameDVR_FSEBehavior", 0, RegistryValueKind.DWord);
-                currentUserKey.OpenSubKey(@"System\GameConfigStore", true)?.SetValue("GameDVR_FSEBehaviorMode", 2, RegistryValueKind.DWord);
-                currentUserKey.OpenSubKey(@"System\GameConfigStore", true)?.SetValue("GameDVR_HonorUserFSEBehaviorMode", 0, RegistryValueKind.DWord);
-                currentUserKey.OpenSubKey(@"System\GameConfigStore", true)?.SetValue("GameDVR_DXGIHonorFSEWindowsCompatible", 0, RegistryValueKind.DWord);
-                currentUserKey.OpenSubKey(@"System\GameConfigStore", true)?.SetValue("GameDVR_EFSEFeatureFlags", 1, RegistryValueKind.DWord);
-                currentUserKey.OpenSubKey(@"System\GameConfigStore", true)?.DeleteValue("GameDVR_DSEBehavior", false);
-                Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Policies\Microsoft\Windows\GameDVR", true)?.DeleteValue("AllowGameDVR", false);
-                currentUserKey.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR", true)?.SetValue("AppCaptureEnabled", 1, RegistryValueKind.DWord);
-                Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Services\BcastDVRUserService", true)?.SetValue("Start", 3, RegistryValueKind.DWord);
-                Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Session Manager\Environment", true)?.DeleteValue("__COMPAT_LAYER", false);
+                Registry.SetValue(@"HKEY_CURRENT_USER\System\GameConfigStore", "GameDVR_Enabled", 0, RegistryValueKind.DWord);
+                Registry.SetValue(@"HKEY_CURRENT_USER\System\GameConfigStore", "GameDVR_FSEBehaviorMode", 0, RegistryValueKind.DWord);
+                Registry.SetValue(@"HKEY_CURRENT_USER\System\GameConfigStore", "GameDVR_FSEBehavior", 0, RegistryValueKind.DWord);
+                Registry.SetValue(@"HKEY_CURRENT_USER\System\GameConfigStore", "GameDVR_HonorUserFSEBehaviorMode", 1, RegistryValueKind.DWord);
+                Registry.SetValue(@"HKEY_CURRENT_USER\System\GameConfigStore", "GameDVR_DXGIHonorFSEWindowsCompatible", 0, RegistryValueKind.DWord);
+                Registry.SetValue(@"HKEY_CURRENT_USER\System\GameConfigStore", "GameDVR_EFSEFeatureFlags", 0, RegistryValueKind.DWord);
+                Registry.SetValue(@"HKEY_CURRENT_USER\System\GameConfigStore", "GameDVR_DSEBehavior", 0, RegistryValueKind.DWord);
                 SapphireTool.DeleteValue("DisableFSO");
             }
         }
@@ -555,27 +533,6 @@ namespace WindowsFormsApplication2.User_Controls
                 Utils.RunCommand("fsutil", "behavior set disableencryption 0");
                 Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Policies", true)?.DeleteValue("NtfsDisableEncryption", false);
                 SapphireTool.DeleteValue("DisableNTFSEncryption");
-            }
-        }
-
-        private void tsTDPCS_CheckedChanged(object sender, EventArgs e)
-        {
-            if (tsTDPCS.Checked)
-            {
-                object aVal = SapphireTool.GetValue("DisableThreadedDPCs");
-                if (null != aVal)
-                {
-                }
-                else
-                {
-                    Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel", "ThreadDpcEnable", 0, RegistryValueKind.DWord);
-                    SapphireTool.SetValue("DisableThreadedDPCs", 1);
-                }
-            }
-            else
-            {
-                Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel", "ThreadDpcEnable", 1, RegistryValueKind.DWord);
-                SapphireTool.DeleteValue("DisableThreadedDPCs");
             }
         }
 
@@ -918,7 +875,7 @@ namespace WindowsFormsApplication2.User_Controls
                 }
                 else
                 {
-                    using (WindowsFormsApplication2.Dialog_Boxes.Timer xForm = new WindowsFormsApplication2.Dialog_Boxes.Timer())
+                    using (SapphireTool.DialogBoxes.Timer xForm = new SapphireTool.DialogBoxes.Timer())
                     {
                         xForm.ShowDialog(this);
                         GC.Collect();

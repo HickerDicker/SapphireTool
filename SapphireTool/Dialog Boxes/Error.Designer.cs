@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApplication2.Dialog_Boxes
+﻿namespace SapphireTool.DialogBoxes
 {
     partial class Error
     {

@@ -115,7 +115,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\SapphireTool paid 7\WindowsFormsApplication2\bin\x64\Debug\Newtonsoft.Json.dll</HintPath>
+      <HintPath>K:\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -201,6 +201,12 @@
     <Compile Include="Dialog Boxes\reverted.Designer.cs">
       <DependentUpon>reverted.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialog Boxes\Minimal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialog Boxes\Minimal.Designer.cs">
+      <DependentUpon>Minimal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialog Boxes\Timer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -212,6 +218,12 @@
     </Compile>
     <Compile Include="Dialog Boxes\update.Designer.cs">
       <DependentUpon>update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog Boxes\upgrade.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialog Boxes\upgrade.designer.cs">
+      <DependentUpon>upgrade.cs</DependentUpon>
     </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
@@ -232,12 +244,6 @@
     </Compile>
     <Compile Include="User Controls\context.Designer.cs">
       <DependentUpon>context.cs</DependentUpon>
-    </Compile>
-    <Compile Include="User Controls\DlAppCard.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="User Controls\DlAppCard.Designer.cs">
-      <DependentUpon>DlAppCard.cs</DependentUpon>
     </Compile>
     <Compile Include="User Controls\downloads.cs">
       <SubType>UserControl</SubType>
@@ -303,11 +309,17 @@
     <EmbeddedResource Include="Dialog Boxes\reverted.resx">
       <DependentUpon>reverted.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialog Boxes\Minimal.resx">
+      <DependentUpon>Minimal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialog Boxes\Timer.resx">
       <DependentUpon>Timer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialog Boxes\update.resx">
       <DependentUpon>update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialog Boxes\upgrade.resx">
+      <DependentUpon>upgrade.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
@@ -327,9 +339,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="User Controls\context.resx">
       <DependentUpon>context.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="User Controls\DlAppCard.resx">
-      <DependentUpon>DlAppCard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User Controls\downloads.resx">
       <DependentUpon>downloads.cs</DependentUpon>
@@ -376,6 +385,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApplication2
+﻿namespace SapphireTool
 {
     partial class cleanup
     {
@@ -59,7 +59,7 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(18, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(152, 53);
+            this.label1.Size = new System.Drawing.Size(161, 41);
             this.label1.TabIndex = 0;
             this.label1.Text = "Cleanup";
             // 
@@ -108,7 +108,7 @@
             this.label9.ForeColor = System.Drawing.Color.Silver;
             this.label9.Location = new System.Drawing.Point(23, 75);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(192, 19);
+            this.label9.Size = new System.Drawing.Size(197, 15);
             this.label9.TabIndex = 88;
             this.label9.Text = "Cleanup leftovers/temporary files";
             // 
@@ -119,7 +119,7 @@
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(32, 146);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(129, 30);
+            this.label3.Size = new System.Drawing.Size(130, 23);
             this.label3.TabIndex = 90;
             this.label3.Text = "Disk Cleanup";
             // 
@@ -130,7 +130,7 @@
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(32, 254);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(219, 30);
+            this.label2.Size = new System.Drawing.Size(220, 23);
             this.label2.TabIndex = 91;
             this.label2.Text = "Extended Disk Cleanup";
             // 
@@ -141,7 +141,7 @@
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(32, 308);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(156, 30);
+            this.label4.Size = new System.Drawing.Size(158, 23);
             this.label4.TabIndex = 92;
             this.label4.Text = "Internet Cookies";
             // 
@@ -152,7 +152,7 @@
             this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(32, 362);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(226, 30);
+            this.label5.Size = new System.Drawing.Size(229, 23);
             this.label5.TabIndex = 93;
             this.label5.Text = "Temporary Internet Files";
             // 
@@ -163,7 +163,7 @@
             this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Location = new System.Drawing.Point(32, 416);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(151, 30);
+            this.label6.Size = new System.Drawing.Size(154, 23);
             this.label6.TabIndex = 94;
             this.label6.Text = "Temporary Files";
             // 
@@ -174,7 +174,7 @@
             this.label7.ForeColor = System.Drawing.Color.White;
             this.label7.Location = new System.Drawing.Point(32, 470);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(158, 30);
+            this.label7.Size = new System.Drawing.Size(159, 23);
             this.label7.TabIndex = 95;
             this.label7.Text = "WinSxS Cleanup";
             // 
@@ -185,7 +185,7 @@
             this.label8.ForeColor = System.Drawing.Color.White;
             this.label8.Location = new System.Drawing.Point(32, 524);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(301, 30);
+            this.label8.Size = new System.Drawing.Size(306, 23);
             this.label8.TabIndex = 96;
             this.label8.Text = "WinSxS Cleanup With ResetBase";
             // 
@@ -196,17 +196,19 @@
             this.label10.ForeColor = System.Drawing.Color.White;
             this.label10.Location = new System.Drawing.Point(32, 200);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(114, 30);
+            this.label10.Size = new System.Drawing.Size(113, 23);
             this.label10.TabIndex = 103;
             this.label10.Text = "DNS Cache";
             // 
             // guna2Button1
             // 
+            this.guna2Button1.Animated = true;
+            this.guna2Button1.BorderRadius = 10;
             this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(34)))), ((int)(((byte)(46)))));
+            this.guna2Button1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(49)))), ((int)(((byte)(61)))));
             this.guna2Button1.Font = new System.Drawing.Font("Inter Medium", 11.25F);
             this.guna2Button1.ForeColor = System.Drawing.Color.White;
             this.guna2Button1.Location = new System.Drawing.Point(457, 146);
@@ -218,11 +220,13 @@
             // 
             // guna2Button2
             // 
+            this.guna2Button2.Animated = true;
+            this.guna2Button2.BorderRadius = 10;
             this.guna2Button2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.guna2Button2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(34)))), ((int)(((byte)(46)))));
+            this.guna2Button2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(49)))), ((int)(((byte)(61)))));
             this.guna2Button2.Font = new System.Drawing.Font("Inter Medium", 11.25F);
             this.guna2Button2.ForeColor = System.Drawing.Color.White;
             this.guna2Button2.Location = new System.Drawing.Point(457, 200);
@@ -234,11 +238,13 @@
             // 
             // guna2Button3
             // 
+            this.guna2Button3.Animated = true;
+            this.guna2Button3.BorderRadius = 10;
             this.guna2Button3.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button3.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button3.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.guna2Button3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(34)))), ((int)(((byte)(46)))));
+            this.guna2Button3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(49)))), ((int)(((byte)(61)))));
             this.guna2Button3.Font = new System.Drawing.Font("Inter Medium", 11.25F);
             this.guna2Button3.ForeColor = System.Drawing.Color.White;
             this.guna2Button3.Location = new System.Drawing.Point(457, 254);
@@ -250,11 +256,13 @@
             // 
             // guna2Button4
             // 
+            this.guna2Button4.Animated = true;
+            this.guna2Button4.BorderRadius = 10;
             this.guna2Button4.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button4.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button4.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.guna2Button4.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button4.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(34)))), ((int)(((byte)(46)))));
+            this.guna2Button4.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(49)))), ((int)(((byte)(61)))));
             this.guna2Button4.Font = new System.Drawing.Font("Inter Medium", 11.25F);
             this.guna2Button4.ForeColor = System.Drawing.Color.White;
             this.guna2Button4.Location = new System.Drawing.Point(457, 308);
@@ -266,11 +274,13 @@
             // 
             // guna2Button5
             // 
+            this.guna2Button5.Animated = true;
+            this.guna2Button5.BorderRadius = 10;
             this.guna2Button5.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button5.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button5.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.guna2Button5.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button5.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(34)))), ((int)(((byte)(46)))));
+            this.guna2Button5.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(49)))), ((int)(((byte)(61)))));
             this.guna2Button5.Font = new System.Drawing.Font("Inter Medium", 11.25F);
             this.guna2Button5.ForeColor = System.Drawing.Color.White;
             this.guna2Button5.Location = new System.Drawing.Point(457, 362);
@@ -282,11 +292,13 @@
             // 
             // guna2Button6
             // 
+            this.guna2Button6.Animated = true;
+            this.guna2Button6.BorderRadius = 10;
             this.guna2Button6.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button6.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button6.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.guna2Button6.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button6.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(34)))), ((int)(((byte)(46)))));
+            this.guna2Button6.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(49)))), ((int)(((byte)(61)))));
             this.guna2Button6.Font = new System.Drawing.Font("Inter Medium", 11.25F);
             this.guna2Button6.ForeColor = System.Drawing.Color.White;
             this.guna2Button6.Location = new System.Drawing.Point(457, 416);
@@ -298,11 +310,13 @@
             // 
             // guna2Button7
             // 
+            this.guna2Button7.Animated = true;
+            this.guna2Button7.BorderRadius = 10;
             this.guna2Button7.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button7.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button7.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.guna2Button7.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button7.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(34)))), ((int)(((byte)(46)))));
+            this.guna2Button7.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(49)))), ((int)(((byte)(61)))));
             this.guna2Button7.Font = new System.Drawing.Font("Inter Medium", 11.25F);
             this.guna2Button7.ForeColor = System.Drawing.Color.White;
             this.guna2Button7.Location = new System.Drawing.Point(457, 470);
@@ -314,11 +328,13 @@
             // 
             // guna2Button8
             // 
+            this.guna2Button8.Animated = true;
+            this.guna2Button8.BorderRadius = 10;
             this.guna2Button8.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button8.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button8.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.guna2Button8.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button8.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(34)))), ((int)(((byte)(46)))));
+            this.guna2Button8.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(49)))), ((int)(((byte)(61)))));
             this.guna2Button8.Font = new System.Drawing.Font("Inter Medium", 11.25F);
             this.guna2Button8.ForeColor = System.Drawing.Color.White;
             this.guna2Button8.Location = new System.Drawing.Point(457, 524);

@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Login_HWID.Dialog_Boxes
+namespace Login_HWID.DialogBoxes
 {
     public partial class AppX : Form
     {
